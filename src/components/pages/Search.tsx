@@ -19,7 +19,6 @@ export function Search() {
     variables: { repoName },
   });
 
-  if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
 
   const repositories = data?.search?.nodes || [];
@@ -37,23 +36,17 @@ export function Search() {
         label="Search by"
         onChange={(e) => onChangeSearchTerm(e.target.value)}
       />
-      <ul>
-        {repositories.map((repo: any) => (
-          <li key={repo.name}>
-            {repo.name} by {repo.owner.login}
-          </li>
-        ))}
-      </ul>
-      <h1>Search</h1>
-      <p>Search query: {searchParams.get("q")}</p>
-      <Button
-        onClick={() => {
-          setSearchParams({ q: "test" });
-        }}
-        variant="contained"
-      >
-        Set search query to "test"
-      </Button>
+      {!loading ? (
+        <ul>
+          {repositories.map((repo: any) => (
+            <li key={repo.name}>
+              {repo.name} by {repo.owner.login}
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p>Loading...</p>
+      )}
     </div>
   );
 }
