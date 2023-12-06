@@ -6,12 +6,15 @@ import {
   createBrowserRouter,
   createRoutesFromElements,
 } from "react-router-dom";
+import { RootLayout } from "./layouts/RootLayout";
+import { Search } from "./components/pages/Search";
+import { Favorites } from "./components/pages/Favorites";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route>
-      <Route path="search" element={<>search</>} />
-      <Route path="favorites" element={<>favorites</>} />
+    <Route path="/" element={<RootLayout />}>
+      <Route path="search" element={<Search />} />
+      <Route path="favorites" element={<Favorites />} />
     </Route>
   )
 );
