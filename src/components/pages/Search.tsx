@@ -3,6 +3,7 @@ import { useSearchParams } from "react-router-dom";
 import { REPOS_BY_NAME } from "../../data/queries";
 import { useEffect, useState } from "react";
 import { Button, TextField } from "@mui/material";
+import { debounce } from "@mui/material/utils";
 
 export function Search() {
   const [repoName, setRepoName] = useState("react");
@@ -23,10 +24,19 @@ export function Search() {
 
   const repositories = data?.search?.nodes || [];
 
+  const onChangeSearchTerm = debounce((value: string) => {
+    setRepoName(value);
+    setSearchParams({ q: value });
+  }, 300);
+
   return (
     <div>
       <h1>Public Repositories</h1>
-      <TextField id="outlined-required" label="Search by" />
+      <TextField
+        id="outlined-required"
+        label="Search by"
+        onChange={(e) => onChangeSearchTerm(e.target.value)}
+      />
       <ul>
         {repositories.map((repo: any) => (
           <li key={repo.name}>
