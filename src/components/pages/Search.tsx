@@ -2,6 +2,7 @@ import { useQuery } from "@apollo/client";
 import { useSearchParams } from "react-router-dom";
 import { REPOS_BY_NAME } from "../../data/queries";
 import { useEffect, useState } from "react";
+import { Button, TextField } from "@mui/material";
 
 export function Search() {
   const [repoName, setRepoName] = useState("react");
@@ -25,6 +26,7 @@ export function Search() {
   return (
     <div>
       <h1>Public Repositories</h1>
+      <TextField id="outlined-required" label="Search by" />
       <ul>
         {repositories.map((repo: any) => (
           <li key={repo.name}>
@@ -34,13 +36,14 @@ export function Search() {
       </ul>
       <h1>Search</h1>
       <p>Search query: {searchParams.get("q")}</p>
-      <button
+      <Button
         onClick={() => {
           setSearchParams({ q: "test" });
         }}
+        variant="contained"
       >
         Set search query to "test"
-      </button>
+      </Button>
     </div>
   );
 }
