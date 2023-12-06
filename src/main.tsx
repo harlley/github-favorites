@@ -9,6 +9,8 @@ import {
 import { RootLayout } from "./layouts/RootLayout";
 import { Search } from "./components/pages/Search";
 import { Favorites } from "./components/pages/Favorites";
+import { ApolloProvider } from "@apollo/client";
+import client from "./data/apollo";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -21,6 +23,8 @@ const router = createBrowserRouter(
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <ApolloProvider client={client}>
+      <RouterProvider router={router} />
+    </ApolloProvider>
   </React.StrictMode>
 );
