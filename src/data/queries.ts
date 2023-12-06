@@ -6,8 +6,12 @@ export const REPOS_BY_NAME = gql`
       nodes {
         ... on Repository {
           name
+          description
+          id
+          url
           owner {
             login
+            avatarUrl
           }
         }
       }

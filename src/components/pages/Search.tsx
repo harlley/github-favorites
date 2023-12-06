@@ -2,8 +2,9 @@ import { useQuery } from "@apollo/client";
 import { useSearchParams } from "react-router-dom";
 import { REPOS_BY_NAME } from "../../data/queries";
 import { useEffect, useState } from "react";
-import { Button, TextField } from "@mui/material";
+import { TextField } from "@mui/material";
 import { debounce } from "@mui/material/utils";
+import { Repository } from "../Repository/Repository";
 
 export function Search() {
   const [repoName, setRepoName] = useState("react");
@@ -39,9 +40,13 @@ export function Search() {
       {!loading ? (
         <ul>
           {repositories.map((repo: any) => (
-            <li key={repo.name}>
-              {repo.name} by {repo.owner.login}
-            </li>
+            <Repository
+              key={repo.id}
+              name={repo.name}
+              description={repo.description}
+              url={repo.url}
+              owner={repo.owner}
+            />
           ))}
         </ul>
       ) : (
