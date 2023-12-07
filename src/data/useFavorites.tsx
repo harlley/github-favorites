@@ -11,12 +11,15 @@ export const FavoritesProvider: React.FC<{ children: React.ReactNode }> = ({
   const [repositories, setRepositories] = useState<RepositoryType[]>([]);
 
   const favorite = useCallback((repository: RepositoryType) => {
-    setRepositories((prevRepositories) => [...prevRepositories, repository]);
+    setRepositories((prevRepositories) => [
+      ...prevRepositories,
+      { ...repository, isFavorite: true },
+    ]);
   }, []);
 
-  const unfavorite = useCallback((repositoryId: number) => {
+  const unfavorite = useCallback((repository: RepositoryType) => {
     setRepositories((prevRepositories) =>
-      prevRepositories.filter((repo) => repo.id !== repositoryId)
+      prevRepositories.filter((repo) => repo.id !== repository.id)
     );
   }, []);
 

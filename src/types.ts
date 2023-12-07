@@ -7,10 +7,11 @@ export type RepositoryType = {
     login: string;
     avatarUrl: string;
   };
+  isFavorite?: boolean;
 };
 
 export type FavoritesContextType = {
   repositories: RepositoryType[];
   favorite: (repository: RepositoryType) => void;
-  unfavorite: (repositoryId: number) => void;
+  unfavorite: (repository: RepositoryType) => void;
 };

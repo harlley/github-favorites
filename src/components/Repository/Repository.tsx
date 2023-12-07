@@ -10,12 +10,12 @@ import { useFavorites } from "../../data/useFavorites";
 import { useNavigate } from "react-router-dom";
 
 export function Repository(repository: RepositoryType) {
-  const { name, description, url, owner } = repository;
-  const { favorite } = useFavorites();
+  const { name, description, url, owner, isFavorite } = repository;
+  const { favorite, unfavorite } = useFavorites();
   const navigate = useNavigate();
 
-  const onFavorite = () => {
-    favorite(repository);
+  const manageFavorites = () => {
+    isFavorite ? unfavorite(repository) : favorite(repository);
     navigate("/favorites");
   };
 
@@ -36,8 +36,8 @@ export function Repository(repository: RepositoryType) {
           </Typography>
         </CardContent>
         <CardActions>
-          <Button size="small" onClick={onFavorite}>
-            Favorite
+          <Button size="small" onClick={manageFavorites}>
+            {isFavorite ? "Unfavorite it" : "Favorite it"}
           </Button>
         </CardActions>
       </Card>
