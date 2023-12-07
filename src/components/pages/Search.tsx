@@ -2,7 +2,7 @@ import { useQuery } from "@apollo/client";
 import { useSearchParams } from "react-router-dom";
 import { REPOS_BY_NAME } from "../../data/queries";
 import { useEffect, useState } from "react";
-import { Box, TextField } from "@mui/material";
+import { Stack, TextField } from "@mui/material";
 import { debounce } from "@mui/material/utils";
 import { Repository } from "../Repository/Repository";
 
@@ -40,19 +40,17 @@ export function Search() {
         sx={{ mb: 2 }}
       />
       {!loading ? (
-        <>
+        <Stack spacing={1}>
           {repositories.map((repo: any) => (
-            <Box marginBottom={2}>
-              <Repository
-                key={repo.id}
-                name={repo.name}
-                description={repo.description}
-                url={repo.url}
-                owner={repo.owner}
-              />
-            </Box>
+            <Repository
+              key={repo.id}
+              name={repo.name}
+              description={repo.description}
+              url={repo.url}
+              owner={repo.owner}
+            />
           ))}
-        </>
+        </Stack>
       ) : (
         <p>Loading...</p>
       )}
