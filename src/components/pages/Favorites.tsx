@@ -1,16 +1,15 @@
 import { useFavorites } from "../../data/useFavorites";
-import { useNavigate } from "react-router-dom";
 import { Repository } from "../Repository/Repository";
-import { Stack } from "@mui/material";
+import { Stack, Typography } from "@mui/material";
 
 export function Favorites() {
   const { repositories } = useFavorites();
-  const navigate = useNavigate();
 
   return (
     <div>
-      <button onClick={() => navigate("/search")}>Search</button>
-      <h1>Favorites Repositories</h1>
+      <Typography variant="h6" component="h1" sx={{ mb: 1 }}>
+        Favorites
+      </Typography>
       <Stack spacing={1}>
         {repositories.map((repo) => (
           <Repository key={repo.id} {...repo} />

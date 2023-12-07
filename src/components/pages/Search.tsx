@@ -1,8 +1,7 @@
 import { useQuery } from "@apollo/client";
-import { useNavigate } from "react-router-dom";
 import { REPOS_BY_NAME } from "../../data/queries";
 import { useState } from "react";
-import { Skeleton, Stack, TextField } from "@mui/material";
+import { Skeleton, Stack, TextField, Typography } from "@mui/material";
 import { debounce } from "@mui/material/utils";
 import { Repository } from "../Repository/Repository";
 import { RepositoryType } from "../../types";
@@ -15,7 +14,6 @@ type RepositoriesData = {
 
 export function Search() {
   const [repoName, setRepoName] = useState("");
-  const navigate = useNavigate();
 
   const { loading, error, data } = useQuery<RepositoriesData>(REPOS_BY_NAME, {
     variables: { repoName },
@@ -32,8 +30,10 @@ export function Search() {
 
   return (
     <div>
-      <button onClick={() => navigate("/favorites")}>Favorites</button>
-      <h1>Repositories</h1>
+      <Typography variant="h6" component="h1" sx={{ mb: 1 }}>
+        Repositories
+      </Typography>
+
       <TextField
         id="outlined-required"
         label="Search by"

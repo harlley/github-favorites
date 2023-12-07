@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import {
+  Navigate,
   Route,
   RouterProvider,
   createBrowserRouter,
@@ -16,6 +17,7 @@ import { FavoritesProvider } from "./data/useFavorites";
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<RootLayout />}>
+      <Route index element={<Navigate to="/search" replace />} />
       <Route path="search" element={<Search />} />
       <Route path="favorites" element={<Favorites />} />
     </Route>
