@@ -1,32 +1,16 @@
 import React, { createContext, useContext, useState, useCallback } from "react";
+import { FavoritesContextType, RepositoryType } from "../types";
 
-type Repository = {
-  id: number;
-  name: string;
-  description: string;
-  url: string;
-  owner: {
-    login: string;
-    avatarUrl: string;
-  };
-};
-
-type FavoritesContextProps = {
-  repositories: Repository[];
-  favorite: (repository: Repository) => void;
-  unfavorite: (repositoryId: number) => void;
-};
-
-const FavoritesContext = createContext<FavoritesContextProps | undefined>(
+const FavoritesContext = createContext<FavoritesContextType | undefined>(
   undefined
 );
 
 export const FavoritesProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const [repositories, setRepositories] = useState<Repository[]>([]);
+  const [repositories, setRepositories] = useState<RepositoryType[]>([]);
 
-  const favorite = useCallback((repository: Repository) => {
+  const favorite = useCallback((repository: RepositoryType) => {
     setRepositories((prevRepositories) => [...prevRepositories, repository]);
   }, []);
 
@@ -36,7 +20,7 @@ export const FavoritesProvider: React.FC<{ children: React.ReactNode }> = ({
     );
   }, []);
 
-  const contextValue: FavoritesContextProps = {
+  const contextValue: FavoritesContextType = {
     favorite,
     unfavorite,
     repositories,

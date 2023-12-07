@@ -6,6 +6,13 @@ import { Stack, TextField } from "@mui/material";
 import { debounce } from "@mui/material/utils";
 import { Repository } from "../Repository/Repository";
 import { useFavorites } from "../../data/useFavorites";
+import { RepositoryType } from "../../types";
+
+type RepositoriesData = {
+  search: {
+    nodes: RepositoryType[];
+  };
+};
 
 export function Search() {
   const [repoName, setRepoName] = useState("react");
@@ -19,7 +26,7 @@ export function Search() {
     }
   }, [searchParams]);
 
-  const { loading, error, data } = useQuery(REPOS_BY_NAME, {
+  const { loading, error, data } = useQuery<RepositoriesData>(REPOS_BY_NAME, {
     variables: { repoName },
   });
 
@@ -36,7 +43,7 @@ export function Search() {
     <div>
       <button onClick={() => navigate("/favorites")}>Favorites</button>
       <pre>{JSON.stringify(repos, null, 2)}</pre>
-      <h1>Public Repositories</h1>
+      <h1>Repositories</h1>
       <TextField
         id="outlined-required"
         label="Search by"
@@ -46,14 +53,8 @@ export function Search() {
       />
       {!loading ? (
         <Stack spacing={1}>
-          {repositories.map((repo: any) => (
-            <Repository
-              key={repo.id}
-              name={repo.name}
-              description={repo.description}
-              url={repo.url}
-              owner={repo.owner}
-            />
+          {repositories.map((repo: RepositoryType) => (
+            <Repository key={repo.id} {...repo} />
           ))}
         </Stack>
       ) : (

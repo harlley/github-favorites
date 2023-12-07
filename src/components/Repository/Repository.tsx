@@ -5,18 +5,10 @@ import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { Avatar, Link } from "@mui/material";
+import { RepositoryType } from "../../types";
 
-type RepositoryProps = {
-  name: string;
-  description: string;
-  url: string;
-  owner: {
-    login: string;
-    avatarUrl: string;
-  };
-};
-
-export function Repository({ name, description, owner, url }: RepositoryProps) {
+export function Repository(repository: RepositoryType) {
+  const { name, description, url, owner } = repository;
   return (
     <Box sx={{ minWidth: 275 }}>
       <Card variant="outlined">
@@ -34,7 +26,9 @@ export function Repository({ name, description, owner, url }: RepositoryProps) {
           </Typography>
         </CardContent>
         <CardActions>
-          <Button size="small">Favorite</Button>
+          <Button size="small" onClick={() => console.log(repository)}>
+            Favorite
+          </Button>
         </CardActions>
       </Card>
     </Box>

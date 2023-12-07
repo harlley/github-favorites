@@ -12,6 +12,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
+    id: 1,
     name: "vite",
     description: "Next generation frontend tooling. It's fast!",
     url: "https://github.com/typescript-cheatsheets/react",

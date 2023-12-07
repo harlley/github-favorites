@@ -1,5 +1,7 @@
 import { useFavorites } from "../../data/useFavorites";
 import { useNavigate } from "react-router-dom";
+import { Repository } from "../Repository/Repository";
+import { Stack } from "@mui/material";
 
 export function Favorites() {
   const { repositories, favorite } = useFavorites();
@@ -23,7 +25,11 @@ export function Favorites() {
   return (
     <div>
       <button onClick={onFavorite}>Add to Favorites</button>
-      <pre>{JSON.stringify(repositories, null, 2)}</pre>
+      <Stack spacing={1}>
+        {repositories.map((repo) => (
+          <Repository key={repo.id} {...repo} />
+        ))}
+      </Stack>
       <button onClick={() => navigate("/search")}>Search</button>
     </div>
   );
