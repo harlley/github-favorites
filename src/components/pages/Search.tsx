@@ -1,14 +1,17 @@
 import { useQuery } from "@apollo/client";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { REPOS_BY_NAME } from "../../data/queries";
 import { useEffect, useState } from "react";
 import { Stack, TextField } from "@mui/material";
 import { debounce } from "@mui/material/utils";
 import { Repository } from "../Repository/Repository";
+import { useFavorites } from "../../data/useFavorites";
 
 export function Search() {
   const [repoName, setRepoName] = useState("react");
   const [searchParams, setSearchParams] = useSearchParams();
+  const { repositories: repos } = useFavorites();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (searchParams.has("q")) {
@@ -31,6 +34,8 @@ export function Search() {
 
   return (
     <div>
+      <button onClick={() => navigate("/favorites")}>Favorites</button>
+      <pre>{JSON.stringify(repos, null, 2)}</pre>
       <h1>Public Repositories</h1>
       <TextField
         id="outlined-required"

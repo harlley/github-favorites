@@ -5,9 +5,9 @@ export const REPOS_BY_NAME = gql`
     search(query: $repoName, type: REPOSITORY, first: 10) {
       nodes {
         ... on Repository {
+          id
           name
           description
-          id
           url
           owner {
             login

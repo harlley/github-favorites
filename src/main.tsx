@@ -11,6 +11,7 @@ import { Search } from "./components/pages/Search";
 import { Favorites } from "./components/pages/Favorites";
 import { ApolloProvider } from "@apollo/client";
 import client from "./data/apollo";
+import { FavoritesProvider } from "./data/useFavorites";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -24,7 +25,9 @@ const router = createBrowserRouter(
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <ApolloProvider client={client}>
-      <RouterProvider router={router} />
+      <FavoritesProvider>
+        <RouterProvider router={router} />
+      </FavoritesProvider>
     </ApolloProvider>
   </React.StrictMode>
 );
