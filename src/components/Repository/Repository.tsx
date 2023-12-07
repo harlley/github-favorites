@@ -7,10 +7,17 @@ import Typography from "@mui/material/Typography";
 import { Avatar, Link } from "@mui/material";
 import { RepositoryType } from "../../types";
 import { useFavorites } from "../../data/useFavorites";
+import { useNavigate } from "react-router-dom";
 
 export function Repository(repository: RepositoryType) {
   const { name, description, url, owner } = repository;
   const { favorite } = useFavorites();
+  const navigate = useNavigate();
+
+  const onFavorite = () => {
+    favorite(repository);
+    navigate("/favorites");
+  };
 
   return (
     <Box sx={{ minWidth: 275 }}>
@@ -29,7 +36,7 @@ export function Repository(repository: RepositoryType) {
           </Typography>
         </CardContent>
         <CardActions>
-          <Button size="small" onClick={() => favorite(repository)}>
+          <Button size="small" onClick={onFavorite}>
             Favorite
           </Button>
         </CardActions>

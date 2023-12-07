@@ -1,7 +1,7 @@
 import { useQuery } from "@apollo/client";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { REPOS_BY_NAME } from "../../data/queries";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Skeleton, Stack, TextField } from "@mui/material";
 import { debounce } from "@mui/material/utils";
 import { Repository } from "../Repository/Repository";
@@ -15,17 +15,11 @@ type RepositoriesData = {
 
 export function Search() {
   const [repoName, setRepoName] = useState("");
-  const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
-
-  useEffect(() => {
-    if (searchParams.has("q")) {
-      setRepoName(searchParams.get("q")!);
-    }
-  }, [searchParams]);
 
   const { loading, error, data } = useQuery<RepositoriesData>(REPOS_BY_NAME, {
     variables: { repoName },
+    skip: !repoName,
   });
 
   if (error) return <p>Error: {error.message}</p>;
@@ -34,7 +28,6 @@ export function Search() {
 
   const onChangeSearchTerm = debounce((value: string) => {
     setRepoName(value);
-    setSearchParams({ q: value });
   }, 300);
 
   return (
