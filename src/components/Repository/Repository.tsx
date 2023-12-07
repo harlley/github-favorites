@@ -6,9 +6,12 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { Avatar, Link } from "@mui/material";
 import { RepositoryType } from "../../types";
+import { useFavorites } from "../../data/useFavorites";
 
 export function Repository(repository: RepositoryType) {
   const { name, description, url, owner } = repository;
+  const { favorite } = useFavorites();
+
   return (
     <Box sx={{ minWidth: 275 }}>
       <Card variant="outlined">
@@ -26,7 +29,7 @@ export function Repository(repository: RepositoryType) {
           </Typography>
         </CardContent>
         <CardActions>
-          <Button size="small" onClick={() => console.log(repository)}>
+          <Button size="small" onClick={() => favorite(repository)}>
             Favorite
           </Button>
         </CardActions>

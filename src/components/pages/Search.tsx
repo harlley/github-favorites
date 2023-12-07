@@ -2,10 +2,9 @@ import { useQuery } from "@apollo/client";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { REPOS_BY_NAME } from "../../data/queries";
 import { useEffect, useState } from "react";
-import { Stack, TextField } from "@mui/material";
+import { Skeleton, Stack, TextField } from "@mui/material";
 import { debounce } from "@mui/material/utils";
 import { Repository } from "../Repository/Repository";
-import { useFavorites } from "../../data/useFavorites";
 import { RepositoryType } from "../../types";
 
 type RepositoriesData = {
@@ -15,9 +14,8 @@ type RepositoriesData = {
 };
 
 export function Search() {
-  const [repoName, setRepoName] = useState("react");
+  const [repoName, setRepoName] = useState("");
   const [searchParams, setSearchParams] = useSearchParams();
-  const { repositories: repos } = useFavorites();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -42,7 +40,6 @@ export function Search() {
   return (
     <div>
       <button onClick={() => navigate("/favorites")}>Favorites</button>
-      <pre>{JSON.stringify(repos, null, 2)}</pre>
       <h1>Repositories</h1>
       <TextField
         id="outlined-required"
@@ -58,7 +55,16 @@ export function Search() {
           ))}
         </Stack>
       ) : (
-        <p>Loading...</p>
+        <Stack spacing={1}>
+          {Array.from({ length: 10 }).map((_, index) => (
+            <Skeleton
+              key={index}
+              variant="rectangular"
+              animation="wave"
+              height={130}
+            />
+          ))}
+        </Stack>
       )}
     </div>
   );
