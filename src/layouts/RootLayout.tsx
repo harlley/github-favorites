@@ -38,12 +38,8 @@ export function RootLayout() {
           navigate(pages[val].path);
         }}
       >
-        {pages.map((page) => (
-          <BottomNavigationAction
-            key={page.index}
-            label={page.label}
-            icon={page.icon}
-          />
+        {pages.map(({ index, label, icon }) => (
+          <BottomNavigationAction key={index} label={label} icon={icon} />
         ))}
       </BottomNavigation>
       <Outlet />
