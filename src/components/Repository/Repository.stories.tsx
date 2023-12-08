@@ -1,10 +1,21 @@
 import type { Meta, StoryObj } from "@storybook/react";
-
 import { Repository } from "./Repository";
+import { FavoritesProvider } from "../../data/useFavorites";
+import { withRouter } from "storybook-addon-react-router-v6";
 
 const meta = {
   title: "Components/Repository",
   component: Repository,
+  decorators: [
+    (Story) => (
+      <div>
+        <FavoritesProvider>
+          <Story />
+        </FavoritesProvider>
+      </div>
+    ),
+    withRouter,
+  ],
 } satisfies Meta<typeof Repository>;
 
 export default meta;
@@ -12,7 +23,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    id: 1,
+    id: "XXXXXXXXXXXXXXXXXX",
     name: "vite",
     description: "Next generation frontend tooling. It's fast!",
     url: "https://github.com/typescript-cheatsheets/react",
