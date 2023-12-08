@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useCallback } from "react";
+import React, { createContext, useContext, useState } from "react";
 import { FavoritesContextType, RepositoryType } from "../types";
 
 const FavoritesContext = createContext<FavoritesContextType | undefined>(
@@ -10,18 +10,21 @@ export const FavoritesProvider: React.FC<{ children: React.ReactNode }> = ({
 }) => {
   const [repositories, setRepositories] = useState<RepositoryType[]>([]);
 
-  const favorite = useCallback((repository: RepositoryType) => {
-    setRepositories((prevRepositories) => [
-      ...prevRepositories,
-      { ...repository, isFavorite: true },
-    ]);
-  }, []);
+  const favorite = (repository: RepositoryType) => {
+    setRepositories((prevRepositories) => {
+      // avoid duplicated favorites
+      if (prevRepositories.find((repo) => repo.id === repository.id)) {
+        return prevRepositories;
+      }
+      return [...prevRepositories, { ...repository, isFavorite: true }];
+    });
+  };
 
-  const unfavorite = useCallback((repository: RepositoryType) => {
+  const unfavorite = (repository: RepositoryType) => {
     setRepositories((prevRepositories) =>
       prevRepositories.filter((repo) => repo.id !== repository.id)
     );
-  }, []);
+  };
 
   const contextValue: FavoritesContextType = {
     favorite,
