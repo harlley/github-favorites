@@ -5,6 +5,7 @@ import { Skeleton, Stack, TextField, Typography } from "@mui/material";
 import { debounce } from "@mui/material/utils";
 import { Repository } from "../Repository/Repository";
 import { RepositoryType } from "../../types";
+import { useFavorites } from "../../data/useFavorites";
 
 type RepositoriesData = {
   search: {
@@ -14,6 +15,7 @@ type RepositoriesData = {
 
 export function Search() {
   const [repoName, setRepoName] = useState("");
+  const { repositories: favorites } = useFavorites();
 
   const { loading, error, data } = useQuery<RepositoriesData>(REPOS_BY_NAME, {
     variables: { repoName },
@@ -43,9 +45,16 @@ export function Search() {
       />
       {!loading ? (
         <Stack spacing={1}>
-          {repositories.map((repo: RepositoryType) => (
-            <Repository key={repo.id} {...repo} />
-          ))}
+          {repositories.map((repo: RepositoryType) => {
+            return (
+              <Repository
+                key={repo.id}
+                {...repo}
+                isFavorite={favorites.some((fav) => fav.id === repo.id)}
+                rating={favorites.find((fav) => fav.id === repo.id)?.rating}
+              />
+            );
+          })}
         </Stack>
       ) : (
         <Stack spacing={1}>
