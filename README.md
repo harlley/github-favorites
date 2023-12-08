@@ -8,4 +8,4 @@
 6. Access the project in your browser http://localhost:5173/ 
 
 ## Live application
-Access https://github-favorites-five.vercel.app
+Access https://github-favorites-harlley.vercel.app
