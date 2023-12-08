@@ -10,11 +10,17 @@ export function Favorites() {
       <Typography variant="h6" component="h1" sx={{ mb: 1 }}>
         Favorites
       </Typography>
-      <Stack spacing={1}>
-        {repositories.map((repo) => (
-          <Repository key={repo.id} {...repo} />
-        ))}
-      </Stack>
+      {repositories.length > 0 ? (
+        <Stack spacing={1}>
+          {repositories.map((repo) => (
+            <Repository key={repo.id} {...repo} />
+          ))}
+        </Stack>
+      ) : (
+        <Typography sx={{ mt: 1 }} color="text.secondary">
+          You don't have any favorite repository yet.
+        </Typography>
+      )}
     </div>
   );
 }
