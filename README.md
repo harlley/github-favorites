@@ -6,3 +6,6 @@
 4. Insert your Github Access token into file `.env`
 5. Run the project with `npm run dev`
 6. Access the project in your browser http://localhost:5173/ 
+
+## Live application
+Access https://github-favorites-five.vercel.app
