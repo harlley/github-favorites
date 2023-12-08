@@ -30,7 +30,7 @@ export function RootLayout() {
   }, [pathname, pages]);
 
   return (
-    <Container fixed>
+    <Container fixed maxWidth="sm">
       <BottomNavigation
         showLabels
         value={selectedPage}

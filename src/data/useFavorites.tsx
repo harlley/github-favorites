@@ -26,9 +26,21 @@ export const FavoritesProvider: React.FC<{ children: React.ReactNode }> = ({
     );
   };
 
+  const rate = (repository: RepositoryType, rating: number) => {
+    setRepositories((prevRepositories) =>
+      prevRepositories.map((repo) => {
+        if (repo.id === repository.id) {
+          return { ...repo, rating };
+        }
+        return repo;
+      })
+    );
+  };
+
   const contextValue: FavoritesContextType = {
     favorite,
     unfavorite,
+    rate,
     repositories,
   };
 
